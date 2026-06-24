@@ -1,0 +1,22 @@
+.account-page {
+  max-width: 980px;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+form {
+  display: grid;
+  gap: .8rem;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+h2 {
+  margin-bottom: .25rem;
+}

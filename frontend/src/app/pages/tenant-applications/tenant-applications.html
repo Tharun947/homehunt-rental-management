@@ -1,0 +1,16 @@
+<section>
+  <h1>My Applications</h1>
+  @if (message()) { <p class="notice">{{ message() }}</p> }
+  <table>
+    <tr><th>Property</th><th>Status</th><th>Actions</th></tr>
+    @for (app of applications(); track app.id) {
+      <tr>
+        <td>{{ app.propertyTitle }}</td>
+        <td>{{ app.status }}</td>
+        <td><button type="button" class="secondary" (click)="withdraw(app.id)">Remove application</button></td>
+      </tr>
+    } @empty {
+      <tr><td colspan="3">You have not applied for any properties yet.</td></tr>
+    }
+  </table>
+</section>

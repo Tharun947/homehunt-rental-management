@@ -1,0 +1,16 @@
+<section class="auth-panel">
+  <h1>Register</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="name" placeholder="Name" />
+    <input formControlName="email" type="email" placeholder="Email" />
+    <input formControlName="password" type="password" placeholder="Password" />
+    <select formControlName="role">
+      <option value="TENANT">Tenant</option>
+      <option value="LANDLORD">Landlord</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+    <button [disabled]="form.invalid">Register</button>
+  </form>
+  <a routerLink="/login">Already registered?</a>
+  @if (error()) { <p class="error">{{ error() }}</p> }
+</section>

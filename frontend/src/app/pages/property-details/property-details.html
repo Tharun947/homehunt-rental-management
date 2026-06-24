@@ -1,0 +1,52 @@
+@if (property(); as property) {
+  <section class="details">
+    <img [src]="imageSrc(property.imageUrl)" [alt]="property.title" />
+    <div>
+      <p class="eyebrow">{{ property.type }}</p>
+      <h1>{{ property.title }}</h1>
+      <p>{{ property.description }}</p>
+      <h2>{{ property.price | currency:'AUD':'symbol':'1.0-0' }} / week</h2>
+      <p>{{ property.location }}</p>
+
+      @if (auth.isAuthenticated()) {
+        <div class="info-panel">
+          <strong>Landlord contact</strong>
+          <p>{{ property.landlordName }}</p>
+          <p>{{ property.landlordEmail }}</p>
+        </div>
+      } @else {
+        <div class="info-panel muted">
+          <strong>Landlord contact</strong>
+          <p>Login to view landlord details, mark interest, or apply.</p>
+          <a class="button" routerLink="/login" [queryParams]="{ returnUrl: '/properties/' + property.id, interestedPropertyId: property.id }">Login to continue</a>
+        </div>
+      }
+
+      @if (auth.role() === 'TENANT') {
+        <div class="action-row">
+          @if (isFavorite()) {
+            <button type="button" class="secondary" (click)="removeFavorite(property.id)" [disabled]="savingFavorite()">Remove interest</button>
+          } @else {
+            <button type="button" (click)="save(property.id)" [disabled]="savingFavorite()">Mark as interested</button>
+          }
+        </div>
+
+        @if (hasApplied()) {
+          <p class="notice">You already applied for this property. Status: {{ applicationStatus() }}</p>
+        } @else {
+          <form [formGroup]="form" (ngSubmit)="apply(property.id)">
+            <input type="number" formControlName="income" placeholder="Annual income" />
+            <textarea formControlName="notes" placeholder="Notes for the landlord"></textarea>
+            <button [disabled]="form.invalid || applying()">Apply</button>
+          </form>
+        }
+      }
+
+      @if (auth.role() === 'LANDLORD') {
+        <p class="notice">Landlords cannot apply for rentals. Use your dashboard to manage your own listings.</p>
+      }
+
+      @if (message()) { <p class="notice">{{ message() }}</p> }
+    </div>
+  </section>
+}

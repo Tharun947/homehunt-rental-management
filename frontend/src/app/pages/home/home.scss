@@ -1,0 +1,40 @@
+.home-hero {
+  min-height: 420px;
+  display: grid;
+  align-items: center;
+}
+
+.home-hero > div {
+  max-width: 720px;
+}
+
+.home-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  margin-bottom: .75rem;
+}
+
+.intro {
+  color: #475569;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  padding-top: 0;
+}
+
+.overview-grid article {
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.overview-grid strong {
+  display: block;
+  color: #0f766e;
+  margin-bottom: .5rem;
+}

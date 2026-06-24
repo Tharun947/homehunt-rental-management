@@ -1,0 +1,23 @@
+<section class="form-panel">
+  <h1>{{ propertyId ? 'Edit Property' : 'Add Property' }}</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="title" placeholder="Title" />
+    <textarea formControlName="description" placeholder="Description"></textarea>
+    <input formControlName="location" placeholder="Location" />
+    <input formControlName="price" type="number" placeholder="Weekly price" />
+    <select formControlName="type">
+      <option value="APARTMENT">Apartment</option>
+      <option value="HOUSE">House</option>
+    </select>
+    <label class="upload-box">
+      <span>Property image</span>
+      <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" (change)="onFileSelected($event)" />
+    </label>
+    @if (previewUrl()) {
+      <img class="preview" [src]="previewUrl()" alt="Selected property image" />
+    }
+    <p class="hint">New listings are submitted for admin approval before they appear publicly.</p>
+    <button [disabled]="form.invalid || uploading()">{{ uploading() ? 'Uploading...' : 'Save' }}</button>
+  </form>
+  @if (error()) { <p class="error">{{ error() }}</p> }
+</section>

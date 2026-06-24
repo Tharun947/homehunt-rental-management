@@ -1,0 +1,19 @@
+<article class="property-card">
+  <img [src]="imageSrc()" [alt]="property.title" />
+  <div>
+    <p class="eyebrow">{{ property.type }}</p>
+    <h3>{{ property.title }}</h3>
+    <p>{{ property.location }}</p>
+    <strong>{{ property.price | currency:'AUD':'symbol':'1.0-0' }} / week</strong>
+    <div class="actions">
+      <a [routerLink]="['/properties', property.id]">View details</a>
+      @if (showInterestAction) {
+        @if (auth.isAuthenticated()) {
+          <a class="button slim" [routerLink]="['/properties', property.id]">Interested</a>
+        } @else {
+          <a class="button slim" routerLink="/login" [queryParams]="{ returnUrl: '/properties/' + property.id, interestedPropertyId: property.id }">Interested</a>
+        }
+      }
+    </div>
+  </div>
+</article>

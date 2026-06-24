@@ -1,0 +1,23 @@
+<section class="account-page">
+  <h1>Account Settings</h1>
+  @if (error()) { <p class="error">{{ error() }}</p> }
+
+  <div class="settings-grid">
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+      <h2>Profile</h2>
+      <input formControlName="name" placeholder="Name" />
+      <input formControlName="email" type="email" placeholder="Email" />
+      <button [disabled]="profileForm.invalid">Update profile</button>
+      @if (profileMessage()) { <p class="notice">{{ profileMessage() }}</p> }
+    </form>
+
+    <form [formGroup]="passwordForm" (ngSubmit)="savePassword()">
+      <h2>Password</h2>
+      <input formControlName="currentPassword" type="password" placeholder="Current password" />
+      <input formControlName="newPassword" type="password" placeholder="New password" />
+      <input formControlName="confirmPassword" type="password" placeholder="Confirm new password" />
+      <button [disabled]="passwordForm.invalid">Update password</button>
+      @if (passwordMessage()) { <p class="notice">{{ passwordMessage() }}</p> }
+    </form>
+  </div>
+</section>

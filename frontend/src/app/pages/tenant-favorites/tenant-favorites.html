@@ -1,0 +1,14 @@
+<section>
+  <h1>Interested Properties</h1>
+  @if (message()) { <p class="notice">{{ message() }}</p> }
+  <div class="grid">
+    @for (property of favorites(); track property.id) {
+      <div class="stack-card">
+        <app-property-card [property]="property" [showInterestAction]="false" />
+        <button type="button" class="secondary" (click)="remove(property.id)">Remove interest</button>
+      </div>
+    } @empty {
+      <p class="empty">You have not marked any properties as interested yet.</p>
+    }
+  </div>
+</section>

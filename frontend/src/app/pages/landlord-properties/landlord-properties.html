@@ -1,0 +1,29 @@
+<section>
+  <div class="section-head">
+    <div>
+      <h1>My Properties</h1>
+      <p class="hint">Listings are submitted to admin review before appearing publicly.</p>
+    </div>
+    <a class="button" routerLink="/landlord/properties/new">Add property</a>
+  </div>
+  @if (message()) { <p class="notice">{{ message() }}</p> }
+  @if (page(); as page) {
+    <table>
+      <tr><th>Title</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr>
+      @for (property of page.content; track property.id) {
+        <tr>
+          <td>{{ property.title }}</td>
+          <td>{{ property.location }}</td>
+          <td>{{ property.price | currency:'AUD':'symbol':'1.0-0' }}</td>
+          <td><span class="status-badge" [class]="property.status.toLowerCase()">{{ property.status }}</span></td>
+          <td class="actions">
+            <a [routerLink]="['/landlord/properties', property.id, 'edit']">Edit</a>
+            <button type="button" (click)="remove(property.id)">Delete</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5">No properties created yet.</td></tr>
+      }
+    </table>
+  }
+</section>

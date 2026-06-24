@@ -1,0 +1,36 @@
+<section class="toolbar">
+  <div>
+    <h1>Available Rentals</h1>
+    <p class="hint">Search approved properties by suburb, title, description, or landlord name.</p>
+  </div>
+  <form [formGroup]="filters" (ngSubmit)="search()">
+    <input formControlName="q" placeholder="Search properties" />
+    <input formControlName="location" placeholder="Location" />
+    <input formControlName="minPrice" type="number" placeholder="Min price" />
+    <input formControlName="maxPrice" type="number" placeholder="Max price" />
+    <select formControlName="type">
+      <option value="">Any type</option>
+      <option value="APARTMENT">Apartment</option>
+      <option value="HOUSE">House</option>
+    </select>
+    <select formControlName="sort">
+      <option value="newest">Newest</option>
+      <option value="price">Price low</option>
+      <option value="-price">Price high</option>
+    </select>
+    <button type="submit">Search</button>
+    <button type="button" class="secondary" (click)="clear()">Clear</button>
+  </form>
+</section>
+
+@if (loading()) {
+  <section><p class="empty">Loading properties...</p></section>
+} @else if (page(); as page) {
+  <section class="grid">
+    @for (property of page.content; track property.id) {
+      <app-property-card [property]="property" />
+    } @empty {
+      <p class="empty">No approved properties match this search.</p>
+    }
+  </section>
+}

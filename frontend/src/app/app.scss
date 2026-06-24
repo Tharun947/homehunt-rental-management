@@ -1,0 +1,70 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  min-height: 72px;
+  padding: .85rem 1.25rem;
+  background: #eef4f8;
+  border-bottom: 1px solid #cbd8e3;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .07);
+}
+
+.brand {
+  color: #111827;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: .01em;
+}
+
+nav,
+.account {
+  display: flex;
+  gap: .45rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav {
+  gap: .35rem;
+}
+
+nav a,
+.account a:not(.button) {
+  color: #42526a;
+  border-radius: 6px;
+  padding: .55rem .75rem;
+  line-height: 1;
+}
+
+nav a:hover,
+.account a:not(.button):hover {
+  background: #dde8ef;
+  color: #0f172a;
+}
+
+nav a.active {
+  background: #d8ebe8;
+  color: #0f766e;
+}
+
+.account {
+  justify-content: flex-end;
+  font-size: .9rem;
+  gap: .75rem;
+}
+
+.account span {
+  color: #334155;
+  white-space: nowrap;
+}
+
+main { min-height: calc(100vh - 72px); }
+
+@media (max-width: 860px) {
+  .topbar { grid-template-columns: 1fr; }
+  .account { justify-content: flex-start; }
+}

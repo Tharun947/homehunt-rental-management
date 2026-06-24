@@ -1,0 +1,11 @@
+<section>
+  <h1>Admin Dashboard</h1>
+  @if (stats$ | async; as stats) {
+    <div class="stats">
+      <article><strong>{{ stats.totalUsers }}</strong><span>Total users</span></article>
+      <article><strong>{{ stats.totalProperties }}</strong><span>Total properties</span></article>
+      <article><strong>{{ stats.pendingApprovals }}</strong><span>Pending approvals</span></article>
+    </div>
+  }
+  <p><a routerLink="/admin/approvals">Review approvals</a> / <a routerLink="/admin/users">Manage users</a> / <a routerLink="/admin/properties">Monitor properties</a></p>
+</section>

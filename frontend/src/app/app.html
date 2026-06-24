@@ -1,0 +1,35 @@
+<header class="topbar">
+  <a class="brand" routerLink="/">HomeHunt</a>
+  <nav>
+    <a routerLink="/properties" routerLinkActive="active">Properties</a>
+    @if (auth.role() === 'TENANT') {
+      <a routerLink="/tenant" routerLinkActive="active">Tenant</a>
+      <a routerLink="/tenant/applications" routerLinkActive="active">Applications</a>
+      <a routerLink="/tenant/interested" routerLinkActive="active">Interested</a>
+    }
+    @if (auth.role() === 'LANDLORD') {
+      <a routerLink="/landlord" routerLinkActive="active">Landlord</a>
+      <a routerLink="/landlord/properties" routerLinkActive="active">My Properties</a>
+      <a routerLink="/landlord/applications" routerLinkActive="active">Applications</a>
+    }
+    @if (auth.role() === 'ADMIN') {
+      <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      <a routerLink="/admin/approvals" routerLinkActive="active">Approvals</a>
+      <a routerLink="/admin/properties" routerLinkActive="active">Properties</a>
+      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+    }
+  </nav>
+  <div class="account">
+    @if (auth.user(); as user) {
+      <a routerLink="/account">{{ user.name }} / {{ user.role }}</a>
+      <button type="button" (click)="auth.logout()">Logout</button>
+    } @else {
+      <a routerLink="/login">Login</a>
+      <a class="button" routerLink="/register">Register</a>
+    }
+  </div>
+</header>
+
+<main>
+  <router-outlet />
+</main>

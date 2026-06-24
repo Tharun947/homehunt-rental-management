@@ -1,0 +1,37 @@
+<section>
+  <h1>Applications by Property</h1>
+  <div class="compact wide">
+    <select name="propertyId" [(ngModel)]="selectedPropertyId" (ngModelChange)="onPropertyChange()">
+      <option [ngValue]="'all'">All properties</option>
+      @for (property of properties(); track property.id) {
+        <option [ngValue]="property.id">{{ property.title }} - {{ property.location }}</option>
+      }
+    </select>
+  </div>
+
+  @if (selectedProperty(); as property) {
+    <div class="info-panel">
+      <strong>{{ property.title }}</strong>
+      <p>{{ property.location }} / {{ property.type }} / {{ property.price | currency:'AUD':'symbol':'1.0-0' }} per week</p>
+    </div>
+  }
+
+  <table>
+    <tr><th>Tenant</th><th>Property</th><th>Income</th><th>Notes</th><th>Status</th><th>Decision</th></tr>
+    @for (app of visibleApplications(); track app.id) {
+      <tr>
+        <td>{{ app.tenantName }}</td>
+        <td>{{ app.propertyTitle }}</td>
+        <td>{{ app.income | currency:'AUD':'symbol':'1.0-0' }}</td>
+        <td>{{ app.notes || '-' }}</td>
+        <td>{{ app.status }}</td>
+        <td>
+          <button type="button" (click)="setStatus(app.id, 'ACCEPTED')" [disabled]="app.status === 'ACCEPTED'">Accept</button>
+          <button class="danger" type="button" (click)="setStatus(app.id, 'REJECTED')" [disabled]="app.status === 'REJECTED'">Reject</button>
+        </td>
+      </tr>
+    } @empty {
+      <tr><td colspan="6">No applications found.</td></tr>
+    }
+  </table>
+</section>

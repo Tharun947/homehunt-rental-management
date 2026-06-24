@@ -1,0 +1,29 @@
+<section>
+  <h1>Property Approvals</h1>
+  <p class="hint">Review landlord submissions in detail before they appear publicly.</p>
+  @if (message()) { <p class="notice">{{ message() }}</p> }
+  @if (pending(); as page) {
+    <div class="review-list">
+      @for (property of page.content; track property.id) {
+        <article class="review-card">
+          <img [src]="imageSrc(property.imageUrl)" [alt]="property.title" />
+          <div>
+            <p class="eyebrow">{{ property.type }} / {{ property.status }}</p>
+            <h2>{{ property.title }}</h2>
+            <p>{{ property.description }}</p>
+            <p><strong>Location:</strong> {{ property.location }}</p>
+            <p><strong>Rent:</strong> {{ property.price | currency:'AUD':'symbol':'1.0-0' }} / week</p>
+            <p><strong>Landlord:</strong> {{ property.landlordName }} / {{ property.landlordEmail }}</p>
+            <div class="action-row">
+              <button type="button" (click)="approve(property.id)">Approve</button>
+              <button class="secondary" type="button" (click)="reject(property.id)">Reject</button>
+              <button class="danger" type="button" (click)="deleteProperty(property.id)">Delete listing</button>
+            </div>
+          </div>
+        </article>
+      } @empty {
+        <p class="empty">No pending properties need review.</p>
+      }
+    </div>
+  }
+</section>
